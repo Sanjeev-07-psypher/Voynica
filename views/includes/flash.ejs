@@ -1,0 +1,17 @@
+
+<%if(typeof success !== 'undefined' && success && success.length){ %>  <!--As success is an array so if its not there means its length is 0 so in order to make it run we gave added this condition-->
+    <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+      </div>
+<%}%>
+
+
+<%if(typeof success !== 'undefined' && error && error.length){ %>  <!--As error is an array so if its not there means its length is 0 so in order to make it run we gave added this condition-->
+    <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+      </div>
+<%}%>
