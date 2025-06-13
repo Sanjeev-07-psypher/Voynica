@@ -112,3 +112,15 @@ body{
     padding-left: 0;
     padding-right: 0;
 }
+
+/*MAP*/
+
+#map{
+    margin-top: 1rem;
+    height:350px;
+    width:95vh;
+    border-radius: 8px;
+}
+
+/*Edit page*/
+
