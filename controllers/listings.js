@@ -94,19 +94,3 @@ module.exports.destroyListing = async (req, res) => {
         res.redirect("/listings");
     };
     
-// module.exports.updateListing = async (req, res) => {
-//     if (!req.body.listing) {
-//         throw new ExpressError(400, "Send valid data for listing");
-//     }
-//     let { id } = req.params;
-//     await Listing.findByIdAndUpdate(id, { ...req.body.listing }); // ... deconstructing
-//     req.flash("success", "Listing Updated Successfully!");
-//     res.redirect(`/listings/${id}`);
-// };
-
-// module.exports.destroyListing = async (req, res) => {
-//     let { id } = req.params;
-//     let deleteListing = await Listing.findByIdAndDelete(id);
-//     req.flash("success", "Listing Deleted Successfully!");
-//     res.redirect("/listings");
-// };
