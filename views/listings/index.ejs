@@ -11,113 +11,103 @@
 
     <style>
       .filter {
-  margin-top: 1rem;
-  text-align: center;
-  margin-right: 2rem;
-  margin-top: 2rem;
-  opacity: 0.7;
-  flex-shrink: 0; /* Prevent filters from shrinking */
-}
+        margin-top: 1rem;
+        text-align: center;
+        margin-right: 0.5rem;
+        margin-top: 2rem;
+        opacity: 0.7;
+        flex-shrink: 0;
+        /* Prevent filters from shrinking */
+      }
 
-.filter:hover {
-  opacity: 1;
-  cursor: pointer;
-}
+      .filter:hover {
+        opacity: 1;
+        cursor: pointer;
+      }
 
-#filters {
-  display: flex;
-  flex-wrap: nowrap; /* Change from wrap to nowrap to keep everything in one line */
-  align-items: center;
-  overflow-x: auto; /* Allow horizontal scrolling if needed */
-  gap: 0.4rem; /* Add consistent spacing between items */
-}
+      #filters {
+        display: flex;
+        flex-wrap: nowrap;
+        /* Change from wrap to nowrap to keep everything in one line */
+        align-items: center;
+        overflow-x: auto;
+        /* Allow horizontal scrolling if needed */
+        gap: 0.4rem;
+        /* Add consistent spacing between items */
+      }
 
-.filter p {
-  font-size: 0.8rem;
-  margin-top: 0.3rem;
-}
+      .filter p {
+        font-size: 0.8rem;
+        margin-top: 0.3rem;
+      }
+      
+      .filter:hover{
+        transform: scale(1.01);
+      }
 
-.tax-toggle-outer {
-  border: 1px solid black;
-  border-radius: 0.6rem !important;
-  padding: 0.6rem;
-  display: flex;
-  align-items: center;
-  margin-left: auto; /* This pushes it to the right */
-  margin-right: 0;
-  flex-shrink: 0; /* Prevent the toggle from shrinking */
-  white-space: nowrap; /* Prevent text wrapping */
-  margin-top: 0.6rem;
-}
+      .tax-toggle-outer {
+        border: 1px solid black;
+        border-radius: 0.6rem !important;
+        padding: 0.6rem;
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+        /* This pushes it to the right */
+        margin-right: 0;
+        flex-shrink: 0;
+        /* Prevent the toggle from shrinking */
+        white-space: nowrap;
+        /* Prevent text wrapping */
+        margin-top: 0.6rem;
+      }
 
-.tax-toggle {
-  align-items: center;
-  display: flex;
-}
+      .tax-toggle {
+        align-items: center;
+        display: flex;
+      }
 
-#tax-info {
-  display: none;
-}
+      #tax-info {
+        display: none;
+      }
     </style>
 
 
     <div id="filters">
-      <div class="filter">
-        <div><i class="fa-solid fa-fire"></i></div>
-        <p>Trending</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-bed"></i></div>
-        <p>Rooms</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-mountain-city"></i></div>
-        <p>Iconic Cities</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-mountain"></i></div>
-        <p>Mountains</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-brands fa-fort-awesome"></i></div>
-        <p>Castles</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-umbrella-beach"></i></div>
-        <p>Beaches</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-campground"></i></div>
-        <p>Camping</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-igloo"></i></div>
-        <p>Arctic</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-gopuram"></i></div>
-        <p>Religious Sites</p>
-      </div>
-      
-      <div class="filter">
-        <div><i class="fa-solid fa-cow"></i></div>
-        <p>Farms</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-ship"></i></div> 
-        <p>House Boats</p>
-      </div>
-      
-        <div class="tax-toggle-outer">
-          <div class="tax-toggle">
-          <div class="form-check-reverse form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-            <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
-          </div>
-        </div>
-        </div>
+  <% const categories = [
+    { name: 'Trending', icon: 'fa-fire' },
+    { name: 'Rooms', icon: 'fa-bed' },
+    { name: 'Iconic Cities', icon: 'fa-mountain-city' },
+    { name: 'Mountain', icon: 'fa-mountain' },
+    { name: 'Castles', icon: 'fa-chess-rook' },
+    { name: 'Beaches', icon: 'fa-umbrella-beach' },
+    { name: 'Camping', icon: 'fa-campground' },
+    { name: 'Arctic', icon: 'fa-igloo' },
+    { name: 'Religious Sites', icon: 'fa-gopuram' },
+    { name: 'Farms', icon: 'fa-cow' },
+    { name: 'House Boats', icon: 'fa-ship' }
+  ]; %>
 
+  <% categories.forEach(cat => { %>
+    <form action="/listings/search" method="GET" class="filter d-inline">
+      <input type="hidden" name="category" value="<%= cat.name %>">
+      <button type="submit" class="btn text-dark border-0 bg-transparent d-flex flex-column align-items-center">
+        <i class="fa-solid filter-icon <%= cat.icon %>"></i>
+        <p><%= cat.name %></p>
+      </button>
+    </form>
+  <% }) %>
+  
+
+  <div class="tax-toggle-outer">
+    <div class="tax-toggle">
+      <div class="form-check-reverse form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+        <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+      </div>
     </div>
+  </div>
+</div>
+
 
 
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">

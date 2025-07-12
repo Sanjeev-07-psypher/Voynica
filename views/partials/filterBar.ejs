@@ -1,0 +1,31 @@
+<style>
+    .active-filter {
+        color: #007bff;
+        font-weight: bold;
+        opacity: 1 !important;
+        transform: scale(1.05);
+    }
+</style>
+
+
+<div id="filters" class="d-flex overflow-auto mt-3">
+    <% const selectedCategory=typeof category !=="undefined" ? category : null; %>
+
+        <% const categories=[ { name: "Beachside" , icon: "fa-umbrella-beach" }, { name: "Mountain Retreat" ,
+            icon: "fa-mountain" }, { name: "City Life" , icon: "fa-city" }, { name: "Camping" , icon: "fa-campground" },
+            { name: "Treehouses" , icon: "fa-tree" }, { name: "Luxury Stays" , icon: "fa-gem" }, {
+            name: "Budget Friendly" , icon: "fa-wallet" }, { name: "Lake View" , icon: "fa-water" } ]; %>
+
+            <% categories.forEach(cat=> { %>
+                <form action="/listings/search" method="GET" class="filter">
+                    <input type="hidden" name="category" value="<%= cat.name %>">
+                    <button type="submit"
+                        class="btn text-dark border-0 bg-transparent d-flex flex-column align-items-center <%= selectedCategory === cat.name ? 'active-filter' : '' %>">
+                        <i class="fa-solid <%= cat.icon %> fa-xl"></i>
+                        <p>
+                            <%= cat.name %>
+                        </p>
+                    </button>
+                </form>
+                <% }) %>
+</div>

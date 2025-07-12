@@ -26,6 +26,10 @@ body{
     color: #222222 !important;
 }
 
+.nav-link-explore{
+    margin-left: 1rem;
+}
+
 /**FOOTer*/
 .f-info-links a{
     text-decoration: none;
@@ -94,7 +98,8 @@ body{
     background-color: #fff;
 }
 .add-btn,.edit-btn{
-    background-color:#fe424d !important;
+    background: linear-gradient(to right, #00f58f, #00c4ff);
+
     border: none !important;
     
 }

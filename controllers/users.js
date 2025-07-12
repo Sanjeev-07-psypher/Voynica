@@ -14,7 +14,7 @@ module.exports.signup=async(req,res)=>{
             if(err){
                 return next(err);
             }
-            req.flash("success","Welcome to WandrrLust");
+            req.flash("success","Welcome to Voynica");
             res.redirect("/listings"); 
         });
     } catch(err){
@@ -28,7 +28,7 @@ module.exports.renderLoginForm=(req,res)=>{
 };
 
 module.exports.login=async(req,res)=>{ //passport provides an aunthenticate() function, which is used as route middleware to authenticate requests.
-        req.flash("success","Welcome back to wandrrlust!");
+        req.flash("success","Welcome back to Voynica!");
         let redirectUrl=res.locals.redirectUrl || "/listings";
         res.redirect(redirectUrl);
         

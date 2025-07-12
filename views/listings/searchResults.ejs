@@ -1,0 +1,67 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  section.shadow-sm {
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+  }
+  .search-text {
+    color: #fe424d;
+  }
+</style>
+
+<% const resultCount = allListings.length; %>
+
+<% if (searchQuery || category) { %>
+  <section class="bg-light p-4 rounded text-center mt-4 shadow-sm">
+    <% if (searchQuery && category) { %>
+      <h2 class="mb-2">
+        Search: "<span class="search-text"><%= searchQuery %></span>" +
+        Filter: "<span class="search-text"><%= category %></span>"
+      </h2>
+    <% } else if (searchQuery) { %>
+      <h2 class="mb-2">
+        Search results for: "<span class="search-text"><%= searchQuery %></span>"
+      </h2>
+    <% } else if (category) { %>
+      <h2 class="mb-2">
+        Filtered by: <span class="search-text"><%= category %></span>
+      </h2>
+    <% } %>
+
+    <p class="text-muted mb-3">
+      Found <strong><%= resultCount %></strong> listing<%= resultCount === 1 ? '' : 's' %>.
+    </p>
+
+    <a href="/listings" class="btn btn-outline-secondary">
+      <i class="fa-solid fa-xmark me-1"></i> Clear Filter
+    </a>
+  </section>
+<% } %>
+
+<!-- 🏡 Listings Grid -->
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-4">
+  <% for (let listing of allListings) { %>
+    <div class="col mb-4">
+      <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+        <div class="card listing-card shadow-sm">
+          <img src="<%= listing.image.url %>" class="card-img-top" style="height: 20rem" alt="listing_image">
+          <div class="card-body">
+            <p class="card-text" data-title="<%= listing.title %>" data-price="<%= listing.price || 0 %>">
+              <b><%= listing.title %></b><br>
+              ₹<%= listing.price ? listing.price.toLocaleString("en-IN") : 0 %> / night
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% } %>
+</div>
+
+<!-- ❌ No results fallback -->
+<% if (resultCount === 0) { %>
+  <div class="text-center mt-5 text-muted">
+    <i class="fa-solid fa-circle-info me-2"></i>
+    No listings found matching your search.
+  </div>
+<% } %>

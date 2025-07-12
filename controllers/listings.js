@@ -57,6 +57,43 @@ module.exports.createListing = async (req, res, next) => { // then handle the lo
     res.redirect("/listings");
 };
 
+
+//search bar
+module.exports.searchListings = async (req, res) => {
+  const { query, category } = req.query;
+  let filter = {};
+
+  // If category selected (not "All")
+  if (category && category !== "All") {
+    filter.category = category;
+  }
+
+  // If search input provided
+  if (query && query.trim() !== "") {
+    const regex = new RegExp(query.trim(), "i");
+    filter.$or = [
+      { title: regex },
+      { location: regex }
+    ];
+  }
+
+  try {
+    const listings = await Listing.find(filter);
+
+    res.render("listings/searchResults", {
+      allListings: listings,
+      category: category || null,
+      searchQuery: query || null
+    });
+  } catch (err) {
+    console.error(err);
+    req.flash("error", "Something went wrong while searching.");
+    res.redirect("/listings");
+  }
+};
+
+
+
 module.exports.renderEditForm = async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
@@ -89,7 +126,7 @@ module.exports.destroyListing = async (req, res) => {
         let { id } = req.params;
         let deletedListing = await Listing.findByIdAndDelete(id);
         console.log(deletedListing);
-        req.flash("success", "New Listing Deleted!");
+        req.flash("success", "Listing Deleted!");
     
         res.redirect("/listings");
     };

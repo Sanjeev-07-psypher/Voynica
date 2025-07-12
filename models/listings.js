@@ -42,11 +42,23 @@ const listingSchema = new Schema({
       required: true
     },
   },
-  // category: {
-  //   type: String,
-  //   enum: ["mountains", "arctic", "farms", "castles"],
-  //   default: "other",
-  // },
+  category: {
+  type: String,
+  enum: [
+    "Trending",
+    "Rooms",
+    "Iconic Cities",
+    "Mountain",
+    "Castles",
+    "Beaches",
+    "Camping",
+    "Arctic",
+    "Religious Sites",
+    "Farms",
+    "House Boats"
+  ],
+  default: "Trending",
+},
 });
 
 //post mongoose middleware
