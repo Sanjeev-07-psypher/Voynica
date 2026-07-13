@@ -7,6 +7,17 @@ const app = require("../app.js");
 const connectDB = require("../config/db.js");
 
 module.exports = async (req, res) => {
-    await connectDB();
+    try {
+        await connectDB();
+    } catch (err) {
+        // Surface the real reason in Vercel's Runtime Logs instead of an opaque crash.
+        console.error("DB connection failed:", err);
+        res.statusCode = 500;
+        res.setHeader("Content-Type", "text/plain");
+        return res.end(
+            "Database connection failed. Check the MONGODB_URI env var in Vercel " +
+            "and Atlas Network Access (allow 0.0.0.0/0)."
+        );
+    }
     return app(req, res);
 };

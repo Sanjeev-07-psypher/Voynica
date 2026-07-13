@@ -13,7 +13,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
 const ExpressError = require("./utils/ExpressError.js");
+const wrapAsync = require("./utils/wrapAsync.js");
 const User = require("./models/user.js");
+const listingController = require("./controllers/listings.js");
 
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
@@ -71,9 +73,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get("/", (req, res) => {
-    res.render("./listings/home.ejs");
-});
+// Home page shows the same listings grid as /listings
+app.get("/", wrapAsync(listingController.index));
 
 //parent route
 app.use("/listings", listingsRouter); //routes->listing.js
