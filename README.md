@@ -2,7 +2,7 @@
 
 A full-stack travel-stays marketplace where you can browse, list, and review unique places to stay — with photo uploads, interactive maps, search, and category filters.
 
-🔗 **Live demo:** [voynica.vercel.app](https://voynica.vercel.app)
+🔗 **Live demo:** [voynica.vercel.app](https://voynica.vercel.app/listings)
 
 ---
 
